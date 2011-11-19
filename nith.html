@@ -17,7 +17,7 @@
 
       pre code { padding: 1em 2em; }
 
-      p > code { border: 1px solid #CCC; background-color: #EEE; }
+      p > code, li > code { padding: 1px 4px; border: 1px solid #CCC; background-color: #EEE; }
 
       .position { font-size: 0.8em; }
 
@@ -52,9 +52,28 @@
 
 ## CoffeeScript
 
-Kompilerer ned til JavaScript.
+* Kompilerer ned til JavaScript.
+* Mindre kode enn JavaScript.
+* "Ny" funksjonalitet på toppen av JavaScript.
+* Inspirert av Python og Ruby (dere vil kjenne igjen mye!)
 
-… altså bør vi starte med en liten intro til JavaScript.
+---
+
+.nice.middle
+
+Men hva er egentlig JavaScript?
+
+---
+
+## JavaScript
+
+
+
+---
+
+.nice.middle
+
+For å komme igang med å bruke CoffeeScript må vi først forstå noen sentrale JavaScript-konsepter.
 
 ---
 
@@ -90,7 +109,49 @@ I JavaScript (og CoffeeScript) sier vi:
 
 ---
 
+Eksempel
 
+---
+
+.nice.middle
+
+.green[bind] kobler en funksjon til en event
+
+---
+
+## bind
+
+Nettlesere har et sett med innebygde eventer, f.eks.:
+
+* `click`
+* `submit`
+* `focus`
+* `change`
+* `mouseOver`
+
+Vi kan dermed kalle en funksjon for eksempel når en bruker klikker på en link.
+
+---
+
+## Eksempel på bind
+
+---
+
+## bind
+
+Vi kan lage våre egne eventer, og binde til disse:
+
+---
+
+.nice.middle
+
+this
+
+---
+
+## this
+
+I Ruby bruker man `self` for å vise til objektet. I CoffeeScript bruker man `this`. Men de fungerer ikke helt likt.
 
 ---
 
