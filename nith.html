@@ -76,7 +76,6 @@ og jeg er konsulent i [BEKK](http://www.bekk.no).
 1. Hva er *CoffeeScript*?
 2. Hva er *SASS*?
 3. Hvordan fungerer *the asset pipeline*?
-4. Hvordan skrive *CoffeeScript-tester* i CoffeeScript?
 
 ---
 
@@ -116,7 +115,7 @@ Et Ruby-eksempel:
 
     .ruby
     names = people.map do |person|
-      person.name.capitalize
+      person.name.capitalize!
     end
 
 Men i JavaScript:
@@ -153,7 +152,7 @@ Mye er likt Ruby, for eksempel:
 Men CoffeeScript har noen særegenheter fra Ruby:
 
 * Signifikant whitespace
-* ...
+* Ikke-blokkerende IO (Mindre skummelt enn det høres ut)
 
 ---
 
@@ -181,7 +180,7 @@ Innholdet settes ofte på neste linje:
     func = ->
       "bar"
 
-Med variabler:
+Med parameter:
 
     .coffee
     greet = (name) ->
@@ -275,7 +274,17 @@ Altså kan en funksjon knyttes til en variabel, være input til en funksjon, ret
 
 ## Anonyme funksjoner
 
+Det som egentlig har skjedd så langt er at vi har knyttet en variabel til en *anonym metode*.
 
+Her knytter vi f.eks. variabelen `sum` til en funksjon som adderer to input-parametre.
+
+    .coffee
+    sum = (a,b) -> a + b
+
+Selve funksjonen er altså kun:
+
+    .coffee
+    (a,b) -> a + b
 
 ---
 
@@ -560,11 +569,13 @@ Istedenfor:
     data = get_data
     puts data
 
-må vi i CoffeeScript skrive:
+kunne vi i CoffeeScript ha skrevet:
 
     .coffee
     getData (data) ->
       alert data
+
+Her kaller vi funksjonen `getData` med en anonym funksjon som input.
 
 ---
 
@@ -725,7 +736,40 @@ Et enkelt tegn. CoffeeScript ftw!
 
 ## Klasser
 
+Som i Ruby brukes `class`. En klassen kan ha en `constructor` som kjøres når
+man instansierer et objekt.
 
+    .coffee
+    class Person
+      constructor: (name) ->
+        @name = name
+
+Legg merke til bruk av `:` istedenfor `=` som vi har brukt så langt. En klasse
+er egentlig kun et objekt, som vi kan tenke på som en litt spesiell Ruby-hash.
+Og til hver nøkkel knytter vi en anonym funksjon.
+
+---
+
+## Kode tilgjengelig på tvers av filer
+
+For å ikke innføre mye global kode, er default i CoffeeScript å holde all kode
+privat innenfor hver `.coffee`-fil. Dere vil fort få behov for å dele kode mellom filer.
+
+Den enkleste måten å dele kode, er å knytte en funksjon eller klasse til det
+*global objektet*, som i nettleseren er `window`:
+
+    .coffee
+    # fil1.coffee
+    class Person
+      constructor: (@name) ->
+
+    window.Person = Person
+
+    # fil2.coffee
+    alert Person   # Man trenger ikke skrive window.Person
+    alert window.Person is Person
+
+Legg så lite kode som mulig i det globale objektet!
 
 ---
 
