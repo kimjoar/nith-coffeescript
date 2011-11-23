@@ -148,6 +148,18 @@ WTF?
 
 ---
 
+## Litt mer seriøst
+
+Det er lett å gjøre feil i JavaScript når man ikke kan språket skikkelig.
+
+* Prototyper
+* Globale variabler
+* `==` vs `===`
+
+Det er til og med en egen bok om hvordan bruke JavaScript rett.
+
+---
+
 .middle.center
 
 # .yellow[Intro til] CoffeeScript
@@ -765,6 +777,73 @@ Og til hver nøkkel knytter vi en anonym funksjon.
 
 ---
 
+## Klasser
+
+Det finnes en finere syntaks på konstruktøren når man bare skal sette en
+variabel etterpå:
+
+    .coffee
+    class Person
+      constructor: (@name) ->
+
+Dette setter automagisk variabelen `@name` til input parameteren med samme navn.
+
+---
+
+## Properties
+
+I en klasse har man *properties*, og det finnes to typer:
+
+    .coffee
+    class Person
+      constructor: (@name) ->
+        Person.count++
+
+      # prototype properties
+      say_hello: ->
+        "Hello #{@name}"
+
+      # class-level properties
+      @count: 0
+
+    kim = new Person("Kim Joar")
+    mads = new Person("Mads")
+
+    alert mads.say_hello()
+    alert Person.count
+
+Tenk på `self` i Ruby-klasser, så går det bra!
+
+---
+
+## Arv
+
+    .coffee
+    class Pet
+      constructor: -> @isHungry = true
+      eat: -> @isHungry = false
+
+    class Dog extends Pet
+      fetch: ->
+        if @isHungry
+          alert "nope!"
+        else
+          alert "yeah!"
+        @isHungry = true
+
+      eat: ->
+        alert "yum!"
+        super()
+
+    dog = new Dog()
+    dog.fetch()
+    dog.eat()
+    dog.fetch()
+
+Som i Ruby kan du bruke `super`, så tar den med alle input-parametre.
+
+---
+
 ## Kode tilgjengelig på tvers av filer
 
 For å ikke innføre mye global kode, er default i CoffeeScript å holde all kode
@@ -794,6 +873,79 @@ Try CoffeeScript, kommandolinje, Rails 3.1!
 
 ---
 
+.middle.center
+
+# JQuery
+
+---
+
+.nice.middle
+
+JavaScript (eller CoffeeScript) i nettleseren uten JQuery? .green[Nei, takk]
+
+---
+
+.middle.center
+
+# .blue[$]
+
+---
+
+## Hvorfor JQuery?
+
+* Cross-browser (a.k.a. håndtere .blue[IE])
+* osv
+* osv
+* Sa jeg cross-browser?
+* Og, så klart, et *veldig* bra API.
+
+---
+
+## JQuery manipulerer DOM-en
+
+    .coffee
+    $("#article p.big").html("test")
+
+Input er (nesten) alltid en eller annen selektor (som egentlig bare er CSS + litt ekstra).
+
+Når du har fått et JQuery-objekt kan du gjøre hva-som-helst — for eksempel
+traversere, legge til, fjerne, flytte på, iterere, prepende, appende, scrolle,
+osvosvosv.
+
+---
+
+.nice.middle
+
+".red[p]" matcher *paragraf*-elementer
+
+".green[#]big" matcher på id-en *big*
+
+".blue[.]test" matcher på klassen *test*
+
+---
+
+## Et eksempel fra koden til denne presentasjonen
+
+    .coffee
+    $("code.coffee:contains('alert')")
+
+Dette matcher da HTML-en som ser slik ut:
+
+    .html
+    <code class="coffee">
+      kodekodekode
+      alert
+      kodekodekode
+    </code>
+
+---
+
+.nice.middle
+
+Mer om JQuery: [api.jquery.com](http://api.jquery.com)
+
+---
+
 .nice.middle.center
 
 Les [CoffeeScript: Accelerated JavaScript Development](http://pragprog.com/book/tbcoffee/coffeescript)
@@ -811,6 +963,69 @@ Et av problemene med CoffeeScript er at man *burde* lære JavaScript.
 .nice.middle.center
 
 Les [JavaScript: The Good Parts](test)!
+
+---
+
+## Anbefalte ressurser for JavaScript
+
+* [Understanding “Prototypes” in JavaScript](http://yehudakatz.com/2011/08/12/understanding-prototypes-in-javascript/)
+* [Understanding JavaScript Function Invocation and "this"](http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/)
+
+---
+
+.middle.center
+
+# .gray[Intro til] Sass
+
+Syntactically Awesome Stylesheets
+
+---
+
+.nice.middle
+
+Sass er et supersett av .green[CSS3]
+
+---
+
+## Vanlig .red[CSS]
+
+… ser ofte ut som dette:
+
+    .css
+    #employee { padding: 0 0 10px 0; }
+    #employee img { float: left; width: 175px; }
+    #employee .info { float: left; width: 400px; }
+    #employee .info div.row { font-size: 1.25em; }
+    #employee .info .pdf { float: right; padding-top: 146px; }
+    #employee .info .reference { float: right; padding-top: 146px; }
+
+Hvorfor må vi gjenta det samme gang på gang?
+
+---
+
+## Variabler
+
+Interpolering, funksjoner
+
+---
+
+## Nesting
+
+Parent reference: &
+
+---
+
+## Mixins
+
+Argumenter
+
+---
+
+## @import
+
+---
+
+## Selector inheritance
 
 ---
 
