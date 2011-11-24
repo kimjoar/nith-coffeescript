@@ -30,14 +30,9 @@
         color: #fff;
         background-color: #FF4943;
         padding: 20px;
-        border: 1px solid #dc0700;
         -moz-border-radius:    15px;
         -webkit-border-radius: 15px;
         border-radius:         15px;
-        -moz-box-shadow:    inset 0 1px 0 #ffaca9;
-        -webkit-box-shadow: inset 0 1px 0 #ffaca9;
-        -o-box-shadow:      inset 0 1px 0 #ffaca9;
-        box-shadow:         inset 0 1px 0 #ffaca9;
       }
       h2 { font-size: 2.5em; }
 
@@ -65,6 +60,7 @@
       .yellow { color: #DBEC62; }
 
       .nice p { font-size: 2.5em; font-family: 'Yanone Kaffeesatz', sans-serif; font-weight: 400; color: #787878; }
+      .nice.large p { font-size: 6em;}
     </style>
   </head>
   <body>
@@ -97,12 +93,12 @@ og jeg er konsulent i [BEKK](http://www.bekk.no).
 ## CoffeeScript
 
 * Kompilerer ned til JavaScript.
-* … men er ikke et supersett (som SASS er for CSS)
+* … men er ikke et supersett (som SASS er for CSS).
 * Mindre kode enn JavaScript.
-* "Ny" funksjonalitet på toppen av JavaScript.
-* Unngår "the bad parts" av JavaScript, f.eks. globale variabler.
+* "Ny funksjonalitet" på toppen av JavaScript.
+* Unngår de dårlige sidene av JavaScript, f.eks. globale variabler.
 * Inspirert av Python og Ruby (dere vil kjenne igjen mye!)
-* Default i Rails 3.1
+* Default i Rails 3.1/
 
 ---
 
@@ -120,7 +116,12 @@ Men hva er egentlig JavaScript?
 
 ## JavaScript
 
-Kjører i nettleseren. Vært der lenge, unngått i mange år. Renessanse. AJAX. Node.js.
+* Det eneste programmeringsspråket som kjører i alle nettlesere.
+* Brukes for å gjøre ting på klientsiden, f.eks. jobbe med DOM-en.
+* Lang historie, men unngått av mange i flere år.
+* Renessanse etter AJAX.
+* Web 2.0
+* Node.js
 
 ---
 
@@ -171,7 +172,7 @@ Det er til og med en egen bok om hvordan bruke JavaScript rett.
 Mye er likt Ruby, for eksempel:
 
 * Ingen semikolon
-* Trenger ikke paranteser for å kalle metoder
+* Trenger ikke paranteser for å kalle funksjoner
 * Kommentarer starter med `#`
 * Interpolasjon → `#{coffeescripting}`
 * Implisitt `return`
@@ -301,7 +302,7 @@ Altså kan en funksjon knyttes til en variabel, være input til en funksjon, ret
 
 ## Anonyme funksjoner
 
-Det som egentlig har skjedd så langt er at vi har knyttet en variabel til en *anonym metode*.
+Det som egentlig har skjedd så langt er at vi har knyttet en variabel til en *anonym funksjon*.
 
 Her knytter vi f.eks. variabelen `sum` til en funksjon som adderer to input-parametre.
 
@@ -582,9 +583,9 @@ Vi vet ikke om `open` er ferdig når det vi kaller `read`. JavaScript har ikke-b
 
 I JavaScript (og CoffeeScript) sier vi:
 
-1. Start gjennomføringen av denne metoden
+1. Start gjennomføringen av denne funksjonen
 2. Gå videre
-3. Eventuelt, når du er ferdig, kall en metode (ofte kalt en *callback*)
+3. Eventuelt, når du er ferdig, kall en funksjon (ofte kalt en *callback*)
 
 ---
 
@@ -664,7 +665,7 @@ Og hva skjer her?
 
 ## Lexical scoping
 
-Grunnen til dette er at `outer` lever kun i metoden i det siste tilfellet. Det
+Grunnen til dette er at `outer` lever kun i funksjonen i det siste tilfellet. Det
 kan vi se om vi gjør det følgende isteden:
 
     .coffee
@@ -750,7 +751,7 @@ Når du ønsker at en funksjon kjører i den nåværende konteksten, uansett hvo
     .coffee
     callback = (til) -> @mottakere.push(til)
 
-Dersom denne metoden brukes som callback, vil `mottakere` sjekkes i det
+Dersom denne funksjonen brukes som callback, vil `mottakere` sjekkes i det
 objektet som *kaller* funksjonen, ikke der funksjonen er definert. Dette er
 stress å fikse i JavaScript, men ikke i CoffeeScript. Løsningen:
 
@@ -885,9 +886,9 @@ JavaScript (eller CoffeeScript) i nettleseren uten JQuery? .green[Nei, takk]
 
 ---
 
-.middle.center
+.nice.large.middle.center
 
-# .blue[$]
+.blue[$]
 
 ---
 
