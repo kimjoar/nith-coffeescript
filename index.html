@@ -1,18 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CoffeeScript and SASS</title>
+    <title>CoffeeScript and Sass</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <script type="text/javascript">
-      RemarkConfig = {
-        highlightStyle: "github",
-        highlightInline: false
-      }
-    </script>
-
     <!-- <script src="https://github.com/downloads/gnab/remark/remark-0.3.0.min.js" type="text/javascript"></script>-->
-    <script src="../remark/remark.min.js" type="text/javascript"></script>
+    <script src="remark.min.js" type="text/javascript"></script>
     <script src="lib/highlight-coffee.js" type="text/javascript"></script>
     <script src="lib/jquery.js" type="text/javascript"></script>
     <script src="lib/coffee-script.js" type="text/javascript"></script>
@@ -39,7 +32,20 @@
       a { color: #41C8F0; text-decoration: none; }
       a:hover { color: #FF4943; text-decoration: none; }
 
-      pre code { padding: 1em 2em; }
+      pre code {
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        background-color: #333; color: #fff; padding: 1em 2em;
+      }
+      pre code .number, pre code.css .value, pre code.css .value .number { color: #0086F7; font-weight: bold; }
+      pre code .keyword, pre code .keymethods, pre code .tag .title { color: #FB660A; font-weight: bold; }
+      pre code.css .id, pre code .symbol { color: #FB660A; font-weight: normal; }
+      pre code .string, pre code .tag .value { color: #0091E2; }
+      pre code .function, pre code.css .class, pre code .preprocessor { color: #87A558; }
+      pre code .title { color: #DBEC62; font-weight: normal; }
+      pre code .params { color: #87A558; }
+      pre code .literal { }
 
       p > code, li > code { padding: 1px 4px; border: 1px solid #CCC; background-color: #EEE; }
 
@@ -49,6 +55,12 @@
       code .function {color: #900;}
 
       .position { font-size: 0.8em; }
+
+      .bekk { font-family: Georgia, serif; background-color: #000; }
+      .bekk p { color: #a09583; }
+      .bekk h1 { text-shadow: none; background-color: inherit; font-family: Georgia, serif; color: #a09583; }
+      .bekk h2 { font-family: Georgia, serif; color: #fff; }
+      .bekk a { color: #ff6967; }
 
       .slide {}
       .slide > .red { background-color: #FF4943; color: #F0F2EB; }
@@ -61,6 +73,9 @@
 
       .nice p { font-size: 2.5em; font-family: 'Yanone Kaffeesatz', sans-serif; font-weight: 400; color: #787878; }
       .nice.large p { font-size: 6em;}
+
+      .agenda ul { list-style-type: none; }
+      .agenda li { font-size: 2.5em; padding: 0.4em 0; font-family: 'Yanone Kaffeesatz', sans-serif; font-weight: 400; color: #787878;}
     </style>
   </head>
   <body>
@@ -68,37 +83,38 @@
 
 .center.middle
 
-# CoffeeScript .yellow[&] SASS
+# CoffeeScript .yellow[&] Sass
 
 ---
 
-.center.middle
+.bekk.center.middle
 
 Mitt navn er
 
-## .blue[Kim Joar Bekkelund]
+## Kim Joar Bekkelund
 
 og jeg er konsulent i [BEKK](http://www.bekk.no).
 
 ---
 
-## Agenda
+.agenda.middle
 
-1. Hva er *CoffeeScript*?
-2. Hva er *SASS*?
-3. Hvordan fungerer *the asset pipeline*?
+* Lære .red[CoffeeScript]
+* Forstå .blue[JavaScript]
+* Komme igang med .green[JQuery]
+* Se litt på .yellow[Sass]
 
 ---
 
 ## CoffeeScript
 
 * Kompilerer ned til JavaScript.
-* … men er ikke et supersett (som SASS er for CSS).
+* … men er ikke et supersett (som Sass er for CSS).
 * Mindre kode enn JavaScript.
 * "Ny funksjonalitet" på toppen av JavaScript.
 * Unngår de dårlige sidene av JavaScript, f.eks. globale variabler.
 * Inspirert av Python og Ruby (dere vil kjenne igjen mye!)
-* Default i Rails 3.1/
+* Default i Rails 3.1
 
 ---
 
@@ -131,7 +147,7 @@ Et Ruby-eksempel:
 
     .ruby
     names = people.map do |person|
-      person.name.capitalize!
+      person.name.capitalize
     end
 
 Men i JavaScript:
@@ -191,7 +207,7 @@ Men CoffeeScript har noen særegenheter fra Ruby:
     someNumber = 42
     aBoolean = true
 
-Helt likt Ruby — men camelcased!
+Helt likt Ruby — men camelcased.
 
 ---
 
@@ -200,12 +216,12 @@ Helt likt Ruby — men camelcased!
 I CoffeeScript brukes `->` for å definere en funksjon:
 
     .coffee
-    func = -> "bar"
+    foo = -> "bar"
 
-Innholdet settes ofte på neste linje:
+Innholdet settes ofte på neste linje i lengre funksjoner:
 
     .coffee
-    func = ->
+    foo = ->
       "bar"
 
 Med parameter:
@@ -232,13 +248,11 @@ Med *splats*:
 
     .coffee
     sum = (nums...) ->
-      result = 0
-      nums.forEach (n) -> result += n
-      result
+      nums.reduce (a, b) -> a + b
 
     alert sum(1,2,3)
     nums = [1,2,3]
-    alert sum nums... # I Ruby ville man bruke *nums
+    alert sum nums...
 
 ---
 
@@ -492,7 +506,7 @@ gjennomkjøring.
 
 ---
 
-## if osv
+## if
 
 Ganske likt Ruby:
 
@@ -532,25 +546,6 @@ Er en operator i CoffeeScript, ikke en del av funksjonsnavnet som i Ruby.
 
 ---
 
-Tilbake til JavaScript-problemet:
-
-    .javascript
-    var names = []
-    for (var i = 0, l = people.length; i &lt; l; i++) {
-      var person = people[i];
-      var name = person.name.slice(0,1).toUpperCase() +
-                 person.name.slice(1);
-      names.push(name);
-    }
-
-Løsning i CoffeeScript:
-
-    .coffee
-    names = for person in people
-      capitalize person.name
-
----
-
 .nice.middle
 
 For å komme igang med å bruke CoffeeScript må vi forstå noen sentrale JavaScript-konsepter.
@@ -568,7 +563,7 @@ JavaScript er .green[eventbasert]
 JavaScript fungerer annerledes enn Ruby. I Ruby kan du skrive:
 
     .ruby
-    data = get_data
+    data = get_data()
     puts data
 
 Men det samme ville ikke fungert i JavaScript.
@@ -579,13 +574,14 @@ Hvorfor?
 
 ## Eventer
 
-Vi vet ikke om `open` er ferdig når det vi kaller `read`. JavaScript har ikke-blokkerende IO.
+Vi vet ikke om `get_data` er ferdig når vi prøver å skrive ut. JavaScript har
+*ikke-blokkerende IO*.
 
 I JavaScript (og CoffeeScript) sier vi:
 
 1. Start gjennomføringen av denne funksjonen
 2. Gå videre
-3. Eventuelt, når du er ferdig, kall en funksjon (ofte kalt en *callback*)
+3. Eventuelt, når du er ferdig, kall en funksjon (ofte kalt *callback*)
 
 ---
 
@@ -601,35 +597,9 @@ kunne vi i CoffeeScript ha skrevet:
 
     .coffee
     getData (data) ->
-      alert data
+      console.log data
 
-Her kaller vi funksjonen `getData` med en anonym funksjon som input.
-
----
-
-.nice.middle
-
-.green[bind] kobler en funksjon til en event
-
----
-
-## bind
-
-Nettlesere har et sett med innebygde eventer, f.eks.:
-
-* `click`
-* `submit`
-* `focus`
-* `change`
-* `mouseOver`
-
-Vi kan dermed kalle en funksjon for eksempel når en bruker klikker på en link.
-
----
-
-## Eksempel på bind
-
-
+Her kaller vi funksjonen `getData` med en anonym funksjon som input. Dette er en *callback*.
 
 ---
 
@@ -714,14 +684,15 @@ La oss ta et eksempel.
     person.settNavn("Kim Joar")
     alert person.navn
 
-På `person` blir `navn` tilgjengelig utenfor, mens utenom blir det ikke det. Da
-er det satt på det *globale objektet*.
+Her ser vi først navn satt på det *globale objektet*, og så satt på `person`.
 
 Dette er *veldig* praktisk når vi har førsteklasses funksjoner.
 
 ---
 
 ## Kall en funksjon i en gitt kontekst
+
+(Dette er litt avansert, men viser hvordan JavaScript fungerer.)
 
 Ved å bruke funksjonen `apply` kan man kalle en funksjon i en gitt kontekst:
 
@@ -746,7 +717,7 @@ Kontekst avhenger av hvordan funksjonen blir kalt.
 
 ## Bind funksjonen (this == this)
 
-Når du ønsker at en funksjon kjører i den nåværende konteksten, uansett hvordan den er kalt.
+Når du ønsker at en funksjon kjører i den nåværende konteksten, uansett hvordan den er kalt, kan du binde `this`.
 
     .coffee
     callback = (til) -> @mottakere.push(til)
@@ -870,7 +841,9 @@ Legg så lite kode som mulig i det globale objektet!
 
 ## Komme igang med CoffeeScript
 
-Try CoffeeScript, kommandolinje, Rails 3.1!
+* Try CoffeeScript
+* Kommandolinje (med en `coffee`-kommando)
+* Rails 3.1! `gem 'coffee-rails'` og alle filer med `.coffee` i javascripts-mappen vil automatisk kompileres til JavaScript.
 
 ---
 
@@ -941,7 +914,39 @@ Dette matcher da HTML-en som ser slik ut:
 
 ---
 
-.nice.middle
+## .bind kobler en funksjon til en event
+
+Nettlesere har et sett med innebygde eventer, f.eks.:
+
+* `click`
+* `submit`
+* `focus`
+* `change`
+* `mouseOver`
+
+Vi kan dermed kalle en funksjon for eksempel når en bruker klikker på en link.
+
+---
+
+## Eksempel på bind med JQuery
+
+    .coffee
+    $('.shopping_cart').bind 'click', (event) =>
+      @customer.purchase @cart
+
+Vi har dermed bundet en funksjon til en klikk på et element. Her ser vi verdien av eventer og verdien av anonyme funksjoner.
+
+Her er et eksempel der verdien av `this` ikke er bundet med `=>`:
+
+    .coffee
+    $('#foo').bind 'mouseenter mouseleave', (event) ->
+      $(this).toggleClass('entered')
+
+Her ser vi verdien av at `this` avhenger av konteksten.
+
+---
+
+.nice.middle.center
 
 Mer om JQuery: [api.jquery.com](http://api.jquery.com)
 
@@ -967,16 +972,18 @@ Les [JavaScript: The Good Parts](test)!
 
 ---
 
-## Anbefalte ressurser for JavaScript
+## Komme igang med JavaScript
 
 * [Understanding “Prototypes” in JavaScript](http://yehudakatz.com/2011/08/12/understanding-prototypes-in-javascript/)
 * [Understanding JavaScript Function Invocation and "this"](http://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/)
+* [JavaScript: The World's Most Misunderstood Programming Language](http://www.crockford.com/javascript/javascript.html)
+* [What should every JavaScript programmer know?](http://stackoverflow.com/questions/2628672/what-should-every-javascript-programmer-know)
 
 ---
 
 .middle.center
 
-# .gray[Intro til] Sass
+# .yellow[Intro til] Sass
 
 Syntactically Awesome Stylesheets
 
@@ -1006,27 +1013,127 @@ Hvorfor må vi gjenta det samme gang på gang?
 
 ## Variabler
 
-Interpolering, funksjoner
+Veldig ofte nevnes samme farger, størrelser og fonter mange ganger på
+tvers av CSS-en.
+
+    .sass
+    $red: #FF4943;
+    $primary-font: Georgia, serif;
+
+    h1 { color: $red; font-family: $primary-font; }
+
+Sass støtter også interpolering og funksjoner:
+
+    .sass
+    $side: top;
+    $padding: 10px;
+    $red: #FF4943;
+
+    .box {
+      padding-#{$side}: $size / 2;
+      color: darken($red, 20%);
+    }
 
 ---
 
 ## Nesting
 
-Parent reference: &
+Istedenfor:
+
+    .css
+    pre code .number {}
+    pre code .keyword {}
+    pre code .string {}
+    pre code .function {}
+    pre code .title {}
+    pre code .params {}
+
+Så kan vi ha:
+
+    .sass
+    pre code {
+      .number {}
+      .keyword {}
+      .string {}
+      .function {}
+      .title {}
+      .params {}
+    }
 
 ---
 
 ## Mixins
 
-Argumenter
+Med mixins kan man enkelt trekke inn et sett med properties og selektorer:
 
----
+    .sass
+    @mixin rounded-corners($radius) {
+      -moz-border-radius: $radius;
+      -webkit-border-radius: $radius;
+      border-radius: $radius;
 
-## @import
+      .content { padding: $radius + 5px; }
+    }
+
+    #footer { @include rounded-corners(10px); }
+
+En mixin kan også bruke en annen mixin.
 
 ---
 
 ## Selector inheritance
+
+Ofte skal en klasse ha de samme stilene som en annen klasse. Da brukes som
+regel generelle klasser og mer spesifikke klasser, f.eks:
+
+    .css
+    .message { padding: 10px; border: 1px solid #ccc; }
+    .error { background-color: red; }
+
+Og så har man HTML-en:
+
+    .html
+    <div class="message error"></div>
+
+Men med Sass kunne man hatt:
+
+    .css
+    .message { padding: 10px; border: 1px solid #ccc; }
+    .error { @extend .message; background-color: red; }
+
+---
+
+## Hvordan det kan se ut
+
+    .no-highlight
+    $total-width: 575px;
+    $img-width: 175px;
+
+    #employee {
+      padding: 0 0 10px 0;
+
+      img { float: left; width: $img-width; }
+
+      .info {
+        float: left;
+        width: $total-width - $img-width;
+
+        .row { font-size: 1.25em; }
+
+        .pdf { float: right; padding-top: 146px; }
+        .reference { @extend .pdf; }
+      }
+    }
+
+
+---
+
+.agenda.middle
+
+* Lære .red[CoffeeScript]
+* Forstå .blue[JavaScript]
+* Komme igang med .green[JQuery]
+* Se litt på .yellow[Sass]
 
 ---
 
@@ -1036,6 +1143,8 @@ Argumenter
 
 Presentasjonen er laget med [remark](http://gnab.github.com/remark/).
 
+---
+
     </textarea>
     <div id="slideshow"></div>
     <script type="text/javascript">
@@ -1043,7 +1152,6 @@ Presentasjonen er laget med [remark](http://gnab.github.com/remark/).
       $(document).ready(function() {
         remark.events.addListener("slidein", function(slide, index) {
           loadConsolesOn("code.coffee:contains('alert')");
-          loadConsolesOn("code.coffee:contains('console')");
         });
       });
     </script>
